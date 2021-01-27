@@ -11,7 +11,8 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "roles")
-public class Role
+// Only entities get auditable fields that are modified and changed.
+public class Role extends Auditable
 {
     /**
      * The primary key (long) of the roles table.
