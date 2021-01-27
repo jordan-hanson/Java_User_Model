@@ -45,6 +45,22 @@ abstract class Auditable
     protected Date lastmodifieddate;
 
 //    Put in getters if a client needs to see it. Don't do them to keep jackson from displaying it on the JSON.
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public String getLastmodiefiedBy() {
+        return lastmodiefiedBy;
+    }
+
+    public Date getLastmodifieddate() {
+        return lastmodifieddate;
+    }
 }
 
 // Right now it will put in the createdBy a username but right now it won't so make a service create UserAuditingImpl
