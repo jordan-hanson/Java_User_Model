@@ -5,22 +5,26 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "userroles")
-public class UserRoles implements Serializable {
+@IdClass(UserRolesId.class)
+public class UserRoles implements Serializable
+{
     @Id
     @ManyToOne
     @JoinColumn(name = "userid")
-    @JsonIgnoreProperties(value = "roles")
+    @JsonIgnoreProperties(value = "roles", allowSetters = true)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "roleid")
-    @JsonIgnoreProperties(value = "users")
+    @JsonIgnoreProperties(value = "users", allowSetters = true)
     @Id
     private Role role;
+
+    public UserRoles() {
+    }
 
     public UserRoles(User user, Role role) {
         this.user = user;
@@ -47,21 +51,26 @@ public class UserRoles implements Serializable {
     public boolean equals(Object o) {
 //        definitely return true of it equals itself
         if (this == o) return true;
-//        If 0 isn't even a UserRole object then definitely it is false.
-        if (!(o instanceof UserRoles)) return false;
 
+//        Jamies lecture
+//        If o isn't even a UserRole object then definitely it is false.
+        if (!(o instanceof UserRoles)) return false;
 
 //        Now lets compare a This and That Object
         UserRoles that = (UserRoles) o; // This converts o our (object) into a type of UserRole called that.
 
+//        Jamies Lecture
         return ((this.user == null) ? 0 : this.user.getUserid()) ==
                 ((that.getUser() == null) ? 0 : that.getUser().getUserid()) &&
                 ((this.role == null) ? 0 : this.role.getRoleid()) ==
                         ((that.getRole() == null) ? 0: that.getRole().getRoleid());
+
     }
 
+//    Skip the hashcode when using Spring.
     @Override
     public int hashCode() {
-        return 1;
+//        Return any number you want.
+        return 22;
     }
 }
